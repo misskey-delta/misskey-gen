@@ -93,5 +93,5 @@ exports.confirm = async (query) => {
  */
 exports.inputNumber = async (query) => {
     var result = await question(`${query} (number)`, (answer) => /^\d+$/.test(answer), "not a valid input number")
-    return Number.parseInt(query)
+    return Number.parseInt(result)
 }
