@@ -1,0 +1,16 @@
+{
+  "name": "misskey-gen",
+  "version": "0.0.0",
+  "description": "generate configurations for misskey-delta projects.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/misskey-delta/misskey-gen.git"
+  },
+  "author": "otofune <otofune@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/misskey-delta/misskey-gen/issues"
+  },
+  "homepage": "https://github.com/misskey-delta/misskey-gen#readme"
+}
