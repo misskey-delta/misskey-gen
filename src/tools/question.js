@@ -9,11 +9,15 @@ var readline = require('readline')
  * @param reInputNotifier {string} re-input error sentence (option)
  * @returns {string} inputted value that passed callback.
  */
-var question = async (query, callback, reInputNotifier = "not a valid input value, please re-input...") => {
+var question = async (query, callback, reInputNotifier = "not a valid input value") => {
     /* interface.question promise wrapper */
-    var q = (query, noPrintEcho, noReturn = false) => new Promise((resolve, reject) => {
+    var q = (query, noReturn = false, retryTimes) => new Promise((resolve, reject) => {
         var union = ""
-        if (! noPrintEcho) console.log(query)
+        if (retryTimes) {
+            console.log(`${query} (retry ${retryTimes} times)`)
+        } else {
+            console.log(query)
+        }
         process.stdout.write("  > ")
 
         if (process.stdin.isTTY) process.stdin.setRawMode(true)
@@ -26,7 +30,9 @@ var question = async (query, callback, reInputNotifier = "not a valid input valu
                 if (process.stdin.isTTY) process.stdin.setRawMode(false)
                 // clear previous line
                 readline.cursorTo(process.stdout, 0)
-                if (! noReturn) readline.moveCursor(process.stdout, 0, -1)
+                // noReturn time, remove input in this line
+                if (noReturn) readline.clearLine(process.stdout, 1)
+                readline.moveCursor(process.stdout, 0, -1)
                 readline.clearLine(process.stdout, 1)
                 resolve(input)
             }
@@ -34,14 +40,14 @@ var question = async (query, callback, reInputNotifier = "not a valid input valu
             if (key.ctrl === true & key.name === "c") {
                 process.exit()
             }
-            // magic with noPrintEcho
+            // magic with noReturn
             else if (key.name === "return") {
                 if (! noReturn) process.stdout.write("\n")
                 handler(union)
             }
             // OH LEGACY!!!
             else if (key.name === key.sequence.toLowerCase() || key.name === undefined || key.name === "space") {
-                union += key.name
+                union += key.sequence
                 process.stdout.write(key.sequence)
             } else if (key.name === "backspace") {
                 readline.moveCursor(process.stdout, -1)
@@ -57,15 +63,12 @@ var question = async (query, callback, reInputNotifier = "not a valid input valu
 
     /* if callback exists, check with it! */
     if (callback && typeof callback === "function") {
-        let fuck = false
+        let fuck = 0
         while (! callback(result) === true) {
-            result = await q(`[!] ${reInputNotifier}`, fuck, true)
-            fuck = true
+            result = await q(`[!] ${reInputNotifier}, please re-input...`, true, fuck)
+            fuck++
         }
     }
-
-    readline.clearLine(process.stdout)
-    readline.cursorTo(process.stdout, 0)
 
     return result
 }
@@ -78,7 +81,7 @@ exports.input = question
  * @returns {boolean}
  */
 exports.confirm = async (query) => {
-    var result = await question(`${query} (y/n)`, (answer) => /^y|n$/.test(answer), "not y/n, please re-input...")
+    var result = await question(`${query} (y/n)`, (answer) => /^y|n$/.test(answer), "not y/n")
     return "y" === result
 }
 
@@ -89,6 +92,6 @@ exports.confirm = async (query) => {
  * @returns {number}
  */
 exports.inputNumber = async (query) => {
-    var result = await question(`${query} (y/n)`, (answer) => /^\d+$/.test(answer), "not a valid input number, please re-input...")
+    var result = await question(`${query} (number)`, (answer) => /^\d+$/.test(answer), "not a valid input number")
     return Number.parseInt(query)
 }
