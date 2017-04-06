@@ -24,8 +24,8 @@ var question = async (query, callback, reInputNotifier = "not a valid input valu
         readline.emitKeypressEvents(process.stdin)
     
         // handler for process.stdin event named 'keypress'
-        const stdinHandler = (ch, key) => {
-            const handler = (input) => {
+        var stdinHandler = (ch, key) => {
+            var handler = (input) => {
                 process.stdin.removeListener("keypress", stdinHandler)
                 if (process.stdin.isTTY) process.stdin.setRawMode(false)
                 // clear previous line
@@ -63,7 +63,7 @@ var question = async (query, callback, reInputNotifier = "not a valid input valu
 
     /* if callback exists, check with it! */
     if (callback && typeof callback === "function") {
-        let fuck = 0
+        var fuck = 0
         while (! callback(result) === true) {
             result = await q(`[!] ${reInputNotifier}, please re-input...`, true, fuck)
             fuck++
