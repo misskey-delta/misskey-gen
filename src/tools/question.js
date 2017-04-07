@@ -12,7 +12,6 @@ var readline = require('readline')
 var question = async (query, callback, reInputNotifier = "not a valid input value") => {
     /* interface.question promise wrapper */
     var q = (query, noReturn = false, retryTimes) => new Promise((resolve, reject) => {
-        var union = ""
         if (retryTimes) {
             console.log(`${query} (retry ${retryTimes} times)`)
         } else {
@@ -24,6 +23,7 @@ var question = async (query, callback, reInputNotifier = "not a valid input valu
         readline.emitKeypressEvents(process.stdin)
     
         // handler for process.stdin event named 'keypress'
+        var union = ""
         var stdinHandler = (ch, key) => {
             var handler = (input) => {
                 process.stdin.removeListener("keypress", stdinHandler)
@@ -49,10 +49,10 @@ var question = async (query, callback, reInputNotifier = "not a valid input valu
             else if (key.name === key.sequence.toLowerCase() || key.name === undefined || key.name === "space") {
                 union += key.sequence
                 process.stdout.write(key.sequence)
-            } else if (key.name === "backspace") {
+            } else if (key.name === "backspace" && union.length > 0) {
                 readline.moveCursor(process.stdout, -1)
                 readline.clearLine(process.stdout, 1)
-                union = union.substr(-1)
+                union = union.slice(0, union.length - 1)
             }
         }
 
