@@ -26,7 +26,7 @@ module.exports = (values, apiKey) => {
         apiServerIp: "127.0.0.1",
         apiServerPort: values.ports.api,
         cookiePass: random(),
-        sessionKey: random(),
+        sessionKey: "hmsk",
         sessionSecret: random(),
         googleRecaptchaSecret: values.recaptcha.secret,
         publicConfig: {
