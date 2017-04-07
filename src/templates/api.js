@@ -13,7 +13,7 @@ module.exports = (values, apiKey, fileKey) => {
             passkey: fileKey,
             url: protocol + host,
             ip: "127.0.0.1",
-            port: values.ports.file
+            port: values.ports.file.internal
         },
         apiPasskey: apiKey,
         port: {
