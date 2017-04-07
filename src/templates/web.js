@@ -61,7 +61,7 @@ module.exports = (values, apiKey) => {
             talkUrl: protocol + "talk." + host,
             forumDomain: "forum",
             forumUrl: protocol + "forum." + host,
-            apiHost: "api" + host,
+            apiHost: "api." + host,
             apiUrl: protocol + "api." + host,
             webApiDomain: "himasaku",
             webApiHost: "himasaku." + host,
