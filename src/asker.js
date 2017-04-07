@@ -1,4 +1,6 @@
-module.exports = () => {
+var question = require("./tools/question")
+
+module.exports = async () => {
     var isValidURL = (value) => {
         const regExp = /^(http)|(https):.+\/?$/
         return regExp.test(value)
