@@ -2,7 +2,10 @@
   "name": "misskey-gen",
   "version": "0.0.0",
   "description": "generate configurations for misskey-delta projects.",
-  "main": "index.js",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/misskey-delta/misskey-gen.git"
