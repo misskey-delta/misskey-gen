@@ -19,5 +19,5 @@ module.exports = (values, fileKey) => {
         response.https.certPath = values.tls.cert
         responce.port.https = values.ports.file.https
     }
-    return responce
+    return response
 }
