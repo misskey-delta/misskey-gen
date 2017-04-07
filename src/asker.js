@@ -1,4 +1,8 @@
 module.exports = () => {
+    var isValidURL = (value) => {
+        const regExp = /^(http)|(https):.+\/?$/
+        return regExp.test(value)
+    }
     var values = {
         urls: {},
         tls: {},
