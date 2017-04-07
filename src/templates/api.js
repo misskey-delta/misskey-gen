@@ -17,8 +17,7 @@ module.exports = (values, apiKey, fileKey) => {
         },
         apiPasskey: apiKey,
         port: {
-            http: values.ports.api,
-            https: values.ports.api + 5
+            http: values.ports.api
         },
         https: {
             enable: false

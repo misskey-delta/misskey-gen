@@ -17,7 +17,6 @@ module.exports = (values, apiKey) => {
         },
         port: {
             http: values.ports.web.http,
-            https: values.ports.web.https ? values.ports.web.https : values.ports.web.http + 100,
             streaming: values.ports.web.streaming
         },
         https: {
@@ -92,6 +91,7 @@ module.exports = (values, apiKey) => {
     if (values.tls.enable) {
         response.https.keyPath = values.tls.key
         response.https.certPath = values.tls.cert
+        response.port.https = values.ports.web.https
     }
 
     return response
