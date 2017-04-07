@@ -1,6 +1,9 @@
 module.exports = (values, apiKey, fileKey) => {
     var host, protocol, temp
-    [temp, protocol, host] = /^(https?:\/\/)(.*)(\/.*)$/.exec(values.urls.secondary)
+    [temp, protocol, host] = /^(https?:\/\/)(.*)$/.exec(values.urls.secondary)
+    // split magic (remove end slash)
+    host = host.split("/")[0]
+    console.log(host)
     var response = {
         mongo: {
             uri: "mongodb://" + values.mongo.host + "/misskey-api"

@@ -1,6 +1,8 @@
 module.exports = (values, fileKey) => {
     var host, protocol, temp
-    [temp, protocol, host] = /^(https?:\/\/)(.*)(\/.*)$/.exec(values.urls.secondary)
+    [temp, protocol, host] = /^(https?:\/\/)(.*)$/.exec(values.urls.secondary)
+    // split magic (remove end slash)
+    host = host.split("/")[0]
     var response = {
         passkey: fileKey,
         port: {

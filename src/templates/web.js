@@ -2,7 +2,9 @@ var random = require("../tools/random")
 
 module.exports = (values, apiKey) => {
     var host, protocol, temp
-    [temp, protocol, host] = /^(https?:\/\/)(.*)(\/.*)$/.exec(values.urls.primary)
+    [temp, protocol, host] = /^(https?:\/\/)(.*)$/.exec(values.urls.primary)
+    // split magic (remove end slash)
+    host = host.split("/")[0]
     var domainFromHost = (host) => {
         var temp, domain
         [temp, domain] = /^(.*?)(\..*?)$/.exec(host)
