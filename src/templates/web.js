@@ -1,14 +1,21 @@
 var random = require("../tools/random")
 
 module.exports = (values, apiKey) => {
-    var host, protocol, temp
-    [temp, protocol, host] = /^(https?:\/\/)(.*)$/.exec(values.urls.primary)
+    var temp, host, protocol, httpPort
+    [temp, protocol, host, httpPort] = /^(https?:\/\/)([^:]*?)(:.*)?\/?$/.exec(values.urls.primary)
     // split magic (remove end slash)
     host = host.split("/")[0]
     var domainFromHost = (host) => {
         var temp, domain
         [temp, domain] = /^(.*?)(\..*?)$/.exec(host)
+        return domain
     }
+    var subHost = (prefix) => `${prefix}.${host}`
+    var subUrl = (prefix, port = values.ports.web.http) => {
+        const tmp = `${protocol}${subHost(prefix)}`
+        return port === 80 ? tmp : `${tmp}:${port}`
+    }
+
     /** base */
     var response = {
         mongo: {
@@ -35,46 +42,46 @@ module.exports = (values, apiKey) => {
             themeColor: values.themeColor,
             domain: domainFromHost(host),
             host: host,
-            url: protocol + host,
-            adminUrl: protocol + "admin." + host,
+            url: protocol + host + (values.ports.web.http === 80 ? "" : `:${values.ports.web.http}`),
             adminDomain: "admin",
-            authorizeUrl: protocol + "auth." + host,
+            adminUrl: subUrl("admin"),
             authorizeDomain: "auth",
-            registerUrl: protocol + "signup." + host,
+            authorizeUrl: subUrl("auth"),
             registerDomain: "signup",
-            signinUrl: protocol + "login." + host,
-            signinDomain: "login",
-            signoutUrl: protocol + "logout." + host,
+            registerUrl: subUrl("signup"),            
+            signinDomain: "login", 
+            sigininUrl: subUrl("login"),          
             signoutDomain: "logout",
+            signoutUrl: subUrl("logout"),
             resourcesDomain: "resources",
-            resourcesHost: "resources." + host,
-            resourcesUrl: protocol + "resources." + host,
-            shieldUrl: protocol + "shield." + host,
+            resourcesHost: subHost("resources"),
+            resourcesUrl: subUrl("resources"),
             shieldDomain: "shield",
-            aboutUrl: protocol + "about." + host,
+            shieldUrl: subUrl("shield"),            
             aboutDomain: "about",
+            aboutUrl: subUrl("about"),           
             searchDomain: "search",
-            searchUrl: protocol + "search." + host,
-            helpUrl: protocol + "help." + host,
+            searchUrl: subUrl("search"),
             helpDomain: "help",
+            helpUrl: subUrl("help"),            
             talkDomain: "talk",
-            talkUrl: protocol + "talk." + host,
+            talkUrl: subUrl("talk"),
             forumDomain: "forum",
-            forumUrl: protocol + "forum." + host,
-            apiHost: "api." + host,
-            apiUrl: protocol + "api." + host,
+            forumUrl: subUrl("forum"),
+            apiHost: subHost("api", values.ports.api),
+            apiUrl: subUrl("api", values.ports.api),
             webApiDomain: "himasaku",
-            webApiHost: "himasaku." + host,
-            webApiUrl: protocol + "himasaku." + host,
-            webStreamingUrl: protocol + "streaming." + host,
-            developerCenterHost: "dev." + host,
-            developerCenterUrl: protocol + "dev." + host,
+            webApiHost: subHost("himasaku"),
+            webApiUrl: subUrl("himasaku"),
+            webStreamingUrl: subUrl("streaming", values.ports.web.streaming),
+            developerCenterHost: subHost("dev"),
+            developerCenterUrl: subUrl("dev"),
             colorDomain: "color",
-            colorUrl: protocol + "color." + host,
+            colorUrl: subUrl("color"),
             shareDomain: "share",
-            shareUrl: protocol + "share." + host,
+            shareUrl: subUrl("share"),
             widgetsDomain: "widgets",
-            widgetsUrl: protocol + "widgets." + host,
+            widgetsUrl: subUrl("widgets"),
             googleRecaptchaSiteKey: values.recaptcha.site,
         }
     }
