@@ -4,15 +4,15 @@ module.exports = (values, apiKey) => {
     var temp, host, protocol, port
     [temp, protocol, host, temp, port] = /^(https?:\/\/)([^:\/]+)(:(\d+))?/.exec(values.urls.primary)
     // cast port to number
-    port = port ? Number.parseInt(port) : port
+    var portNum = port ? Number.parseInt(port) : null
     var domainFromHost = (host) => {
         var temp, domain
-        [temp, domain] = /^(.*?)(\..*?)$/.exec(host)
+        [temp, domain] = /^([^\.]+)/.exec(host)
         return domain
     }
     var genHost = (prefix) => prefix ? `${prefix}.${host}` : host
     var genUrl = (prefix,
-        port = port,
+        port = portNum,
         isWebStandardPort = true,
         webStandardPort = values.tls.enable
             ? values.ports.web.https
