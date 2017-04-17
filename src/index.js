@@ -41,7 +41,7 @@ var main = async () => {
     var subdomains = JSON.parse(fs.readFileSync(path.join(srcDir, "spec/subdomains.json")))
 
     /** make values to various setting objects */
-    var web = webTemplate(values, apiKey, subdomains.web)
+    var web = webTemplate(values, apiKey, subdomains)
     var api = apiTemplate(values, apiKey, fileKey)
     var file = fileTemplate(values, fileKey)
 

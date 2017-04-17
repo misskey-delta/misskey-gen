@@ -1,6 +1,6 @@
 var random = require("../tools/random")
 
-module.exports = (values, apiKey, domains) => {
+module.exports = (values, apiKey, subdomains) => {
     var temp, host, protocol, port
     [temp, protocol, host, temp, port] = /^(https?:\/\/)([^:\/]+)(:(\d+))?/.exec(values.urls.primary)
     // cast port to number
@@ -67,10 +67,14 @@ module.exports = (values, apiKey, domains) => {
             googleRecaptchaSiteKey: values.recaptcha.site,
         }
     }
-    /** add domains to response */
-    Object.keys(domains).forEach(name => {
-        response.publicConfig[name + "Domain"] = domains[name]
-        response.publicConfig[name + "Url"] = genUrl(domains[name])
+    /** add subdomains to response */
+    Object.keys(subdomains["web"]).forEach(name => {
+        response.publicConfig[name + "Domain"] = subdomains["web"][name]
+        response.publicConfig[name + "Url"] = genUrl(subdomains["web"][name])
+    })
+    Object.keys(subdomains["web-host"]).forEach(name => {
+        response.publicConfig[name + "Host"] = genHost(subdomains["web-host"][name]),
+        response.publicConfig[name + "Url"] = genUrl(subdomains["web-host"][name])
     })
     /** mongo section */
     if (values.mongo.auth) {

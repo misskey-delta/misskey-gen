@@ -5,18 +5,20 @@
         "register": "signup",
         "signin": "signin",
         "signout": "signout",
-        "resources": "resources",
         "shield": "shield",
         "about": "about",
         "search": "search",
         "help": "help",
         "talk": "talk",
         "forum": "forum",
-        "webApi": "himasaku",
         "developerCenter": "dev",
         "color": "color",
         "share": "share",
         "widgets": "widgets"
+    },
+    "web-host": {
+        "webApi": "himasaku",
+        "resources": "resources"
     },
     "web-streaming": {
         "streaming": "streaming"
