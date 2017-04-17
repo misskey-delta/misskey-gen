@@ -9,7 +9,8 @@ Usage
 -----
 1. clone this repository.
 2. run `npm start`. after you answered 10-20 questions, misskey-gen generates configurations to `store` directory.
-3. move `store` to your `$HOME/.misskey`
+3. move json files in `store` to your `$HOME/.misskey`.
+4. add `store/hosts-snippet` to your hosts file. (_optional_)
 
 Tips
 -----

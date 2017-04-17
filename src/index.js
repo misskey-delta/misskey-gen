@@ -7,6 +7,7 @@ var random = require("./tools/random")
 var webTemplate = require("./templates/web")
 var apiTemplate = require("./templates/api")
 var fileTemplate = require("./templates/file")
+var hostsSnippetTemplate = require("./templates/hosts-snippet")
 /** parts */
 var asker = require("./asker")
 /** check process in debug mode */
@@ -44,6 +45,9 @@ var main = async () => {
     var api = apiTemplate(values, apiKey, fileKey)
     var file = fileTemplate(values, fileKey)
 
+    /** make snippet */
+    var hostsSnippet = hostsSnippetTemplate(values, subdomains)
+
     /** create store directory */
     try {
         fs.mkdirSync(storeDir)
@@ -56,6 +60,7 @@ var main = async () => {
         fs.writeFileSync(path.join(storeDir, "web.json"), JSON.stringify(web, null, 4))
         fs.writeFileSync(path.join(storeDir, "api.json"), JSON.stringify(api, null, 4))
         fs.writeFileSync(path.join(storeDir, "file.json"), JSON.stringify(file, null, 4))
+        fs.writeFileSync(path.join(storeDir, "hosts-snippet"), hostsSnippet)
         // if debug mode, save values object to values.json
         if (debug) fs.writeFileSync(path.join(storeDir, "values.json"), JSON.stringify(values, null, 4))
     } catch (e) {
