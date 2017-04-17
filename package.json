@@ -4,7 +4,8 @@
   "description": "generate configurations for misskey-delta projects.",
   "main": "./src/index.js",
   "scripts": {
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js",
+    "debug": "node ./src/index.js --debug"
   },
   "repository": {
     "type": "git",
