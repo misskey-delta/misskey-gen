@@ -1,19 +1,37 @@
 var random = require("../tools/random")
 
 module.exports = (values, apiKey) => {
-    var temp, host, protocol, httpPort
-    [temp, protocol, host, httpPort] = /^(https?:\/\/)([^:]*?)(:.*)?\/?$/.exec(values.urls.primary)
-    // split magic (remove end slash)
-    host = host.split("/")[0]
+    var temp, host, protocol, port
+    [temp, protocol, host, temp, port] = /^(https?:\/\/)([^:\/]+)(:(\d+))?/.exec(values.urls.primary)
+    // cast port to number
+    port = port ? Number.parseInt(port) : port
     var domainFromHost = (host) => {
         var temp, domain
         [temp, domain] = /^(.*?)(\..*?)$/.exec(host)
         return domain
     }
-    var subHost = (prefix) => `${prefix}.${host}`
-    var subUrl = (prefix, port = values.ports.web.http) => {
-        const tmp = `${protocol}${subHost(prefix)}`
-        return port === 80 ? tmp : `${tmp}:${port}`
+    var genHost = (prefix) => prefix ? `${prefix}.${host}` : host
+    var genUrl = (prefix,
+        port = port,
+        isWebStandardPort = true,
+        webStandardPort = values.tls.enable
+            ? values.ports.web.https
+            : values.ports.web.http) => {
+        const tmp = `${protocol}${genHost(prefix)}`
+        // return early with not defined port
+        if (! port) return tmp
+        // cut protocols default patturn
+        switch (protocol) {
+            case "http:":
+                if (port === 80) return tmp
+                break
+            case "https:":
+                if (port === 443) return tmp
+        }
+        // prior port than webStandardPort, when webStandardPort enabled or port isn't equal to webStandardPort.
+        if (! webStandardPort || port !== webStandardPort) return `${tmp}:${port}` 
+        // join webStandardPort...
+        return `${tmp}:${webStandardPort}`
     }
 
     /** base */
@@ -42,46 +60,46 @@ module.exports = (values, apiKey) => {
             themeColor: values.themeColor,
             domain: domainFromHost(host),
             host: host,
-            url: protocol + host + (values.ports.web.http === 80 ? "" : `:${values.ports.web.http}`),
+            url: genUrl(null),
             adminDomain: "admin",
-            adminUrl: subUrl("admin"),
+            adminUrl: genUrl("admin"),
             authorizeDomain: "auth",
-            authorizeUrl: subUrl("auth"),
+            authorizeUrl: genUrl("auth"),
             registerDomain: "signup",
-            registerUrl: subUrl("signup"),            
+            registerUrl: genUrl("signup"),            
             signinDomain: "login", 
-            sigininUrl: subUrl("login"),          
+            sigininUrl: genUrl("login"),          
             signoutDomain: "logout",
-            signoutUrl: subUrl("logout"),
+            signoutUrl: genUrl("logout"),
             resourcesDomain: "resources",
-            resourcesHost: subHost("resources"),
-            resourcesUrl: subUrl("resources"),
+            resourcesHost: genHost("resources"),
+            resourcesUrl: genUrl("resources"),
             shieldDomain: "shield",
-            shieldUrl: subUrl("shield"),            
+            shieldUrl: genUrl("shield"),            
             aboutDomain: "about",
-            aboutUrl: subUrl("about"),           
+            aboutUrl: genUrl("about"),           
             searchDomain: "search",
-            searchUrl: subUrl("search"),
+            searchUrl: genUrl("search"),
             helpDomain: "help",
-            helpUrl: subUrl("help"),            
+            helpUrl: genUrl("help"),            
             talkDomain: "talk",
-            talkUrl: subUrl("talk"),
+            talkUrl: genUrl("talk"),
             forumDomain: "forum",
-            forumUrl: subUrl("forum"),
-            apiHost: subHost("api", values.ports.api),
-            apiUrl: subUrl("api", values.ports.api),
+            forumUrl: genUrl("forum"),
+            apiHost: genHost("api"),
+            apiUrl: genUrl("api", values.ports.api, false),
             webApiDomain: "himasaku",
-            webApiHost: subHost("himasaku"),
-            webApiUrl: subUrl("himasaku"),
-            webStreamingUrl: subUrl("streaming", values.ports.web.streaming),
-            developerCenterHost: subHost("dev"),
-            developerCenterUrl: subUrl("dev"),
+            webApiHost: genHost("himasaku"),
+            webApiUrl: genUrl("himasaku"),
+            webStreamingUrl: genUrl("streaming", values.ports.web.streaming, false),
+            developerCenterHost: genHost("dev"),
+            developerCenterUrl: genUrl("dev"),
             colorDomain: "color",
-            colorUrl: subUrl("color"),
+            colorUrl: genUrl("color"),
             shareDomain: "share",
-            shareUrl: subUrl("share"),
+            shareUrl: genUrl("share"),
             widgetsDomain: "widgets",
-            widgetsUrl: subUrl("widgets"),
+            widgetsUrl: genUrl("widgets"),
             googleRecaptchaSiteKey: values.recaptcha.site,
         }
     }
