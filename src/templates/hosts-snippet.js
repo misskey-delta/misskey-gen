@@ -8,7 +8,7 @@ module.exports = (values, subdomains) => {
     snippet += primaryHostname + " " + secondaryUrl.hostname
     Object.keys(subdomains).forEach(category => {
         Object.keys(subdomains[category]).forEach(subdomain => {
-            snippet += ` ${subdomain}.${primaryHostname}`
+            snippet += ` ${subdomains[category][subdomain]}.${primaryHostname}`
         })
     })
     return snippet
