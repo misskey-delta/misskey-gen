@@ -1,0 +1,27 @@
+{
+    "web": {
+        "admin": "admin",
+        "auth": "auth",
+        "register": "signup",
+        "signin": "signin",
+        "signout": "signout",
+        "resources": "resources",
+        "shield": "shield",
+        "about": "about",
+        "search": "search",
+        "help": "help",
+        "talk": "talk",
+        "forum": "forum",
+        "webApi": "himasaku",
+        "developerCenter": "dev",
+        "color": "color",
+        "share": "share",
+        "widgets": "widgets"
+    },
+    "web-streaming": {
+        "streaming": "streaming"
+    },
+    "api": {
+        "api": "api"
+    }
+}

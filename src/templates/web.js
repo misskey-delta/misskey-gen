@@ -1,4 +1,10 @@
 var random = require("../tools/random")
+var path = require("path")
+var fs = require("fs")
+
+/** directory path */
+var current = path.dirname(__filename)
+var srcDir = path.join(current, "..")
 
 module.exports = (values, apiKey) => {
     var temp, host, protocol, port
@@ -61,48 +67,18 @@ module.exports = (values, apiKey) => {
             domain: domainFromHost(host),
             host: host,
             url: genUrl(null),
-            adminDomain: "admin",
-            adminUrl: genUrl("admin"),
-            authorizeDomain: "auth",
-            authorizeUrl: genUrl("auth"),
-            registerDomain: "signup",
-            registerUrl: genUrl("signup"),            
-            signinDomain: "login", 
-            sigininUrl: genUrl("login"),          
-            signoutDomain: "logout",
-            signoutUrl: genUrl("logout"),
-            resourcesDomain: "resources",
-            resourcesHost: genHost("resources"),
-            resourcesUrl: genUrl("resources"),
-            shieldDomain: "shield",
-            shieldUrl: genUrl("shield"),            
-            aboutDomain: "about",
-            aboutUrl: genUrl("about"),           
-            searchDomain: "search",
-            searchUrl: genUrl("search"),
-            helpDomain: "help",
-            helpUrl: genUrl("help"),            
-            talkDomain: "talk",
-            talkUrl: genUrl("talk"),
-            forumDomain: "forum",
-            forumUrl: genUrl("forum"),
             apiHost: genHost("api"),
             apiUrl: genUrl("api", values.ports.api, false),
-            webApiDomain: "himasaku",
-            webApiHost: genHost("himasaku"),
-            webApiUrl: genUrl("himasaku"),
             webStreamingUrl: genUrl("streaming", values.ports.web.streaming, false),
-            developerCenterHost: genHost("dev"),
-            developerCenterUrl: genUrl("dev"),
-            colorDomain: "color",
-            colorUrl: genUrl("color"),
-            shareDomain: "share",
-            shareUrl: genUrl("share"),
-            widgetsDomain: "widgets",
-            widgetsUrl: genUrl("widgets"),
             googleRecaptchaSiteKey: values.recaptcha.site,
         }
     }
+    /** add domains from spec json */
+    var domains = JSON.parse(fs.readFileSync(path.join(srcDir, "spec/subdomains.json"))).web
+    Object.keys(domains).forEach(name => {
+        response.publicConfig[name + "Domain"] = domains[name]
+        response.publicConfig[name + "Url"] = genUrl(domains[name])
+    })
     /** mongo section */
     if (values.mongo.auth) {
         response.mongo.options = {
