@@ -12,8 +12,8 @@ var asker = require("./asker")
 /** check process in debug mode */
 var debug = -1 !== process.argv.indexOf("--debug")
 /** source directory path */
-var current = path.dirname(__filename)
-var baseDir = path.join(current, "..")
+var srcDir = path.dirname(__filename)
+var baseDir = path.join(srcDir, "..")
 var storeDir = path.join(baseDir, "store")
 
 /**
@@ -36,8 +36,11 @@ var main = async () => {
     var apiKey = random()
     var fileKey = random()
 
+    /** load subdomains json */
+    var subdomains = JSON.parse(fs.readFileSync(path.join(srcDir, "spec/subdomains.json")))
+
     /** make values to various setting objects */
-    var web = webTemplate(values, apiKey)
+    var web = webTemplate(values, apiKey, subdomains.web)
     var api = apiTemplate(values, apiKey, fileKey)
     var file = fileTemplate(values, fileKey)
 

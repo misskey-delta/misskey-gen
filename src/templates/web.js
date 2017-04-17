@@ -1,12 +1,6 @@
 var random = require("../tools/random")
-var path = require("path")
-var fs = require("fs")
 
-/** directory path */
-var current = path.dirname(__filename)
-var srcDir = path.join(current, "..")
-
-module.exports = (values, apiKey) => {
+module.exports = (values, apiKey, domains) => {
     var temp, host, protocol, port
     [temp, protocol, host, temp, port] = /^(https?:\/\/)([^:\/]+)(:(\d+))?/.exec(values.urls.primary)
     // cast port to number
@@ -73,8 +67,7 @@ module.exports = (values, apiKey) => {
             googleRecaptchaSiteKey: values.recaptcha.site,
         }
     }
-    /** add domains from spec json */
-    var domains = JSON.parse(fs.readFileSync(path.join(srcDir, "spec/subdomains.json"))).web
+    /** add domains to response */
     Object.keys(domains).forEach(name => {
         response.publicConfig[name + "Domain"] = domains[name]
         response.publicConfig[name + "Url"] = genUrl(domains[name])
