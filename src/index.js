@@ -11,16 +11,15 @@ var fileTemplate = require("./templates/file")
 var asker = require("./asker")
 /** check process in debug mode */
 var debug = -1 !== process.argv.indexOf("--debug")
+/** source directory path */
+var current = path.dirname(__filename)
+var baseDir = path.join(current, "..")
+var storeDir = path.join(baseDir, "store")
 
 /**
  * shit main
  */
 var main = async () => {
-    /** source directory path */
-    var current = path.dirname(__filename)
-    var baseDir = path.join(current, "..")
-    var storeDir = path.join(baseDir, "store")
-
     /** get nesessary values for generation */
     var values
     // if debug mode, try to read values from values.json
