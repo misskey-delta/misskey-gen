@@ -5,7 +5,6 @@
         "register": "signup",
         "signin": "signin",
         "signout": "signout",
-        "shield": "shield",
         "about": "about",
         "search": "search",
         "help": "help",
