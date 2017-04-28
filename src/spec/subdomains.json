@@ -9,11 +9,7 @@
         "search": "search",
         "help": "help",
         "talk": "talk",
-        "forum": "forum",
-        "developerCenter": "dev",
-        "color": "color",
-        "share": "share",
-        "widgets": "widgets"
+        "share": "share"
     },
     "web-host": {
         "webApi": "himasaku",
