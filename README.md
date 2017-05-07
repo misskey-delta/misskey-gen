@@ -29,7 +29,6 @@ web uses subdomains under primary domain:
 | search | search posts | yes | yes |
 | talk | direct messages | yes | yes |
 | himasaku | api proxy | yes | yes |
-| color | _mystely_ | no | no |
 | share | providing embedding share script | yes | no |
 
 api uses subdomain under primary domain:  
