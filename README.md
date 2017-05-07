@@ -22,8 +22,8 @@ web uses subdomains under primary domain:
 | :-- | :-- | :-- | :-- |
 | auth | auth use applications | no | no |
 | signup | user signup to misskey | yes | yes |
-| login | user login point | yes | yes |
-| logout | user logout point | yes | yes |
+| signin | user signin point | yes | yes |
+| signout | user signout point | yes | yes |
 | resources | delivery css & js | yes | yes |
 | about | about page | yes | yes |
 | search | search posts | yes | yes |
