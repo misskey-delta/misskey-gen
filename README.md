@@ -20,7 +20,6 @@ web uses subdomains under primary domain:
 
 | subdomain name | description | implemented | need to open |
 | :-- | :-- | :-- | :-- |
-| admin | admin panel | no | no |
 | auth | auth use applications | no | no |
 | signup | user signup to misskey | yes | yes |
 | login | user login point | yes | yes |
@@ -28,7 +27,6 @@ web uses subdomains under primary domain:
 | resources | delivery css & js | yes | yes |
 | about | about page | yes | yes |
 | search | search posts | yes | yes |
-| help | help | no | no |
 | talk | direct messages | yes | yes |
 | himasaku | api proxy | yes | yes |
 | color | _mystely_ | no | no |

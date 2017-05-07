@@ -1,6 +1,5 @@
 {
     "web": {
-        "admin": "admin",
         "auth": "auth",
         "register": "signup",
         "signin": "signin",
