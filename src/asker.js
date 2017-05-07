@@ -40,7 +40,6 @@ module.exports = async () => {
     values.ports.api = await question.inputNumber("what is http port to run misskey-api?")
     values.ports.web.http = await question.inputNumber("what is http port to run misskey-web?")
     if (values.tls.enable) values.ports.web.https = await question.inputNumber("what is https port to run misskey-web?")
-    values.ports.web.streaming = await question.inputNumber("what is streaming port to run misskey-web?")
     values.ports.file.internal = await question.inputNumber("what is internal http port to run misskey-file?")
     values.ports.file.http = await question.inputNumber("what is http port to run misskey-file?")
     if (values.tls.enable) values.ports.file.https = await question.inputNumber("what is https port to run misskey-file?")

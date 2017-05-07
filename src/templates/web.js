@@ -43,8 +43,7 @@ module.exports = (values, apiKey, subdomains) => {
             host: values.redis.host
         },
         port: {
-            http: values.ports.web.http,
-            streaming: values.ports.web.streaming
+            http: values.ports.web.http
         },
         https: {
             enable: values.tls.enable
@@ -63,7 +62,6 @@ module.exports = (values, apiKey, subdomains) => {
             url: genUrl(null),
             apiHost: genHost("api"),
             apiUrl: genUrl("api", values.ports.api, false),
-            webStreamingUrl: genUrl("streaming", values.ports.web.streaming, false),
             googleRecaptchaSiteKey: values.recaptcha.site,
         }
     }

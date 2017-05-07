@@ -15,9 +15,6 @@
         "webApi": "himasaku",
         "resources": "resources"
     },
-    "web-streaming": {
-        "streaming": "streaming"
-    },
     "api": {
         "api": "api"
     }
