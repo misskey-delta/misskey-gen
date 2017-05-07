@@ -26,18 +26,13 @@ web uses subdomains under primary domain:
 | login | user login point | yes | yes |
 | logout | user logout point | yes | yes |
 | resources | delivery css & js | yes | yes |
-| shield | https proxy for http pictures | yes | yes |
 | about | about page | yes | yes |
 | search | search posts | yes | yes |
 | help | help | no | no |
 | talk | direct messages | yes | yes |
-| forum | forum | no | no |
 | himasaku | api proxy | yes | yes |
-| streaming | timeline stream | yes | yes |
-| dev | developer central | no | no |
 | color | _mystely_ | no | no |
 | share | providing embedding share script | yes | no |
-| widgets | _mystely_ | no | no |
 
 api uses subdomain under primary domain:  
 
