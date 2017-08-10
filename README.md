@@ -12,6 +12,34 @@ Usage
 3. move json files in `store` to your `$HOME/.misskey`.
 4. add `store/hosts-snippet` to your hosts file. (_optional_)
 
+### input
+you can input settings by interacting, or environment variables. want list of environment variables, see below.
+
+| name | required | type | sample |
+| :-- | :-- | :-- | :-- |
+| MISSKEY_GEN_URLS_PRIMARY | yes | url string | http://example.com:8081/ |
+| MISSKEY_GEN_URLS_SECONDARY | yes | url string | http://example.com:8084/ |
+| MISSKEY_GEN_TLS_ENABLE | yes | bool (0 or 1) | 0 |
+| MISSKEY_GEN_TLS_KEY | if TLS_ENABLED is 1, yes | path string | /etc/letsencrypt/live/example.com/privkey.pem |
+| MISSKEY_GEN_TLS_CERT | if TLS_ENABLED is 1, yes | path string | /etc/letsencrypt/live/example.com/fullchain.pem |
+| MISSKEY_GEN_MONGO_HOST | yes | host string | localhost |
+| MISSKEY_GEN_MONGO_AUTH | yes | bool (0, 1) | 0 |
+| MISSKEY_GEN_MONGO_USER | if MONGO_AUTH is 1, yes | string | sample |
+| MISSKEY_GEN_MONGO_PASSWORD | if MONGO_AUTH is 1, yes | string | sample |
+| MISSKEY_GEN_REDIS_HOST | yes | host string | localhost |
+| MISSKEY_GEN_REDIS_AUTH | yes | bool (0, 1) | 0 |
+| MISSKEY_GEN_REDIS_PASSWORD | yes | string | sample |
+| MISSKEY_GEN_PORTS_API | yes | number | 8080 |
+| MISSKEY_GEN_PORTS_WEB_HTTP | yes | number | 8081 |
+| MISSKEY_GEN_PORTS_WEB_HTTPS | if TLS_ENABLED is 1, yes | number | 8082 |
+| MISSKEY_GEN_PORTS_FILE_INTERNAL | yes | number | 8083 |
+| MISSKEY_GEN_PORTS_FILE_HTTP | yes | number | 8084 |
+| MISSKEY_GEN_PORTS_FILE_HTTPS | if TLS_ENABLED is 1, yes | number | 8085 | 
+| MISSKEY_GEN_RECAPTCHA_SITE | yes | reCAPTHCHA Site key | 6Le0eywUAAAAADg5OnDEl5StCjfIT7lLOzcXE5XC |
+| MISSKEY_GEN_RECAPTCHA_SECRET | yes | reCAPTCHA Secret key | 6Le0eywUAAAAAFZKSxqUrC0mmNlYEmX_Fei9gRyt |
+| MISSKEY_GEN_THEME_COLOR | yes | color string | #666666 |
+| MISSKEY_GEN_FILE_STORAGE_PATH | yes | path string | /home/misskey/storage |
+
 Tips
 -----
 
