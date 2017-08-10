@@ -26,7 +26,7 @@ module.exports = async () => {
     /** tls section */
     values.tls.enable =
         process.env.MISSKEY_GEN_TLS_ENABLE
-        ? Boolean(process.env.MISSKEY_GEN_TLS_ENABLE)
+        ? Boolean(parseInt(process.env.MISSKEY_GEN_TLS_ENABLE))
         : await question.confirm("do you want to use Node.js providing TLS?")
     if (values.tls.enable) {
         values.tls.key =
@@ -39,16 +39,16 @@ module.exports = async () => {
     /** mongoDB section */
     values.mongo.host =
         process.env.MISSKEY_GEN_MONGO_HOST
-        ? Boolean(process.env.MISSKEY_GEN_MONGO_HOST)
+        ? Boolean(parseInt(process.env.MISSKEY_GEN_MONGO_HOST))
         : await question.input("what is MongoDB server hostname? (ex. localhost)")
     values.mongo.auth =
         process.env.MISSKEY_GEN_MONGO_AUTH
-        ? Boolean(process.env.MISSKEY_GEN_MONGO_AUTH)
+        ? Boolean(parseInt(process.env.MISSKEY_GEN_MONGO_AUTH))
         : await question.confirm("do you want to use MongoDB authentication?")
     if (values.mongo.auth) {
         values.mongo.authUser =
             process.env.MISSKEY_GEN_MONGO_USER
-            ? Boolean(process.env.MISSKEY_GEN_MONGO_USER)
+            ? Boolean(parseInt(process.env.MISSKEY_GEN_MONGO_USER))
             : await question.confirm("what is MongoDB's username?")
         values.mongo.authPassword =
             process.env.MISSKEY_GEN_MONGO_PASSWORD ||
@@ -60,7 +60,7 @@ module.exports = async () => {
         await question.input("what is Redis server hostname? (ex. localhost)")
     values.redis.auth =
         process.env.MISSKEY_GEN_REDIS_AUTH
-        ? Boolean(process.env.MISSKEY_GEN_REDIS_AUTH)
+        ? Boolean(parseInt(process.env.MISSKEY_GEN_REDIS_AUTH))
         : await question.confirm("do you want to use Redis authentication?")
     if (values.redis.auth) {
         values.redis.authPassword =
