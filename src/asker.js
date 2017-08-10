@@ -38,18 +38,16 @@ module.exports = async () => {
     }
     /** mongoDB section */
     values.mongo.host =
-        process.env.MISSKEY_GEN_MONGO_HOST
-        ? Boolean(parseInt(process.env.MISSKEY_GEN_MONGO_HOST))
-        : await question.input("what is MongoDB server hostname? (ex. localhost)")
+        process.env.MISSKEY_GEN_MONGO_HOST ||
+        await question.input("what is MongoDB server hostname? (ex. localhost)")
     values.mongo.auth =
         process.env.MISSKEY_GEN_MONGO_AUTH
         ? Boolean(parseInt(process.env.MISSKEY_GEN_MONGO_AUTH))
         : await question.confirm("do you want to use MongoDB authentication?")
     if (values.mongo.auth) {
         values.mongo.authUser =
-            process.env.MISSKEY_GEN_MONGO_USER
-            ? Boolean(parseInt(process.env.MISSKEY_GEN_MONGO_USER))
-            : await question.confirm("what is MongoDB's username?")
+            process.env.MISSKEY_GEN_MONGO_USER ||
+            await question.confirm("what is MongoDB's username?")
         values.mongo.authPassword =
             process.env.MISSKEY_GEN_MONGO_PASSWORD ||
             await question.input("what is MongoDB's password?")
